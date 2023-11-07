@@ -129,3 +129,68 @@ LINQ (Language-Integrated Query) представляет простой и уд
 * LastOrDefault: выбирает последний элемент коллекции или возвращает значение по умолчанию
 
 
+## Компонент dataGridView
+
+![img](pic/doc2.png)
+![img](pic/doc3.png)
+
+## Загрузка данных:
+
+Ниже представлен текст программы, который позволяет загрузить файл CSV в таблицу DataGridView. Файл CSV – это текстовый файл, в котором значения разделены разделителем  -  символом “;”
+
+```c#
+private void button6_Click(object sender, EventArgs e)
+        {
+            int tablelen = 0;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog1.FileName;
+                // читаем файл в строку
+                string[] fileText = System.IO.File.ReadAllLines(filename, System.Text.Encoding.Default);
+                string[] words;
+                dataGridView1.Columns.Add("ID", "ID");
+                for (int c = 0; c < fileText.Length; c++)
+                {
+                    if (c == 0)
+                    {
+                        words = fileText[c].Split(';');
+                        tablelen = words.Length;
+                        for (int k = 0; k < tablelen; k++)
+                        {
+                            dataGridView1.Columns.Add(words[k], words[k]);
+                        }
+                    } else
+                    { 
+                        words = fileText[c].Split(';');
+                        dataGridView1.Rows.Add();
+                        for (int k = 0; k < tablelen; k++)
+                        {
+                            dataGridView1[0, c-1].Value = Convert.ToString(c-1);
+                            dataGridView1[k + 1, c-1].Value = words[k];
+                        }
+                    }
+                }
+           }
+       }
+```
+## Запросы к DataGridView через LINQ:
+```c#
+List<DataGridViewRow> rows2 = 
+    new List<DataGridViewRow> 
+    (from DataGridViewRow r in dataGridView1.Rows 
+    where r.Cells["status"].Value.ToString().Equals("active") 
+    select r);
+```
+Это потому, что код linq возвращает `IEnumerable<T>`, а не `List<T>`. Но вы можете создать `List<T>` из `IEnumerable<T>`, вызвав соответствующий конструктор:
+```c#
+var list = new List<T>(iEnumerable); 
+```
+Чтобы предотвратить нулевые эталонные исключения вы можете дополнительно улучшить свой код таким образом:
+```c#
+List<DataGridViewRow> rows2 = 
+     new List<DataGridViewRow> 
+     (from DataGridViewRow r in dgView.Rows 
+     where r.Cells["status"]?.Value.ToString().Equals("active")??false 
+     select r); 
+```
+'?' после того, как `Cells["status"]` гарантирует, что любые нулевые ссылки приводят к нулевому значению. И тогда окончательный ??false говорит, что если бы у нас было null, мы возвращаем false (т.е. Не включаем эту строку).
