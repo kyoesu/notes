@@ -12,7 +12,7 @@
 ![Alt text](pic/3.1.png)
 
 Код:
-
+``` C#
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -61,7 +61,7 @@
             }
         }
     }
-
+```
 
 Результат: 
 

@@ -13,7 +13,7 @@
 ### Блок-схема:
 ![Блок-схема](pic/1.png)
 
-
+``` C#
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -48,7 +48,7 @@
             }
         }
     }
-
+```
 
 
 ### Результат:

@@ -16,6 +16,7 @@ $y = -2;$                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$
 $y=\sqrt{4-(x-8)^2}-2$    &emsp;&emsp;&ensp;$6<=x<=10$
 
 ## Код:
+``` C#
     namespace лаб.раб._4
     {
         class Program
@@ -55,3 +56,4 @@ $y=\sqrt{4-(x-8)^2}-2$    &emsp;&emsp;&ensp;$6<=x<=10$
         }
     }
 
+```

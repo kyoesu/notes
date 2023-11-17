@@ -9,7 +9,7 @@
 
 
 
-
+``` C#
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -84,7 +84,7 @@
         }
     }
 
-
+```
 
 ### Результат:
 ![Alt text](pic/2.2.png)
